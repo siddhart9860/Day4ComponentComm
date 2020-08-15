@@ -2,21 +2,24 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-tabledirective-component',
-  templateUrl: './app.tablecomponent.view.html'
+  templateUrl: './app.tablecomponent.view.html',
 })
-
 export class TableDirectiveComponent implements OnInit {
   private dataSource: Array<any>;
   headers: Array<string>;
   @Output() // EventEmitter<T>, cass used to emit event with payload parameter as T
   notify: EventEmitter<any>;
+
+  @Output() deleteNotifier: EventEmitter<any>;
+
   constructor() {
     this.dataSource = new Array<any>();
     this.headers = new Array<string>();
     this.notify = new EventEmitter<any>();
+    this.deleteNotifier = new EventEmitter<any>();
   }
 
-  ngOnInit():void { }
+  ngOnInit(): void { }
 
   // parent will be able to use datasourve property for
   // property binding
@@ -41,5 +44,10 @@ export class TableDirectiveComponent implements OnInit {
     // parent must subscribe to the event using
     // event binding and  read data
     this.notify.emit(rec);
+  }
+
+  deleteRow(rec: any): void {
+
+    this.deleteNotifier.emit(rec);
   }
 }

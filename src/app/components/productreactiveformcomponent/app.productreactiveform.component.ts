@@ -7,7 +7,7 @@ import { CustomValidator } from './app.custom.validator';
 
 @Component({
   selector: 'app-productreactiveform-component',
-  templateUrl: './app.productreactiveform.view.html'
+  templateUrl: './app.productreactiveform.view.html',
 })
 // OnInit: Angular Component's lifecycle interface
 export class ProductReactiveFormComponent implements OnInit {
@@ -31,42 +31,49 @@ export class ProductReactiveFormComponent implements OnInit {
     // formGroup instance will be bind with [formGroup] property of <form></form>
     // The key of FormControl will be bound with 'formControlName' of editable element
     this.frmProduct = new FormGroup({
-      ProductRowId: new FormControl(this.product.ProductRowId,
+      ProductRowId: new FormControl(
+        this.product.ProductRowId,
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(5),
           Validators.pattern('[0-9]*'),
-          CustomValidator.CheckEven
-        ])),
-      ProductId: new FormControl(this.product.ProductId, Validators.compose([
-        Validators.required,
-        CustomValidator.CheckSpace,
-        CustomValidator.Duplicate])
+          CustomValidator.CheckEven,
+        ])
       ),
-      ProductName: new FormControl(this.product.ProductName, Validators.compose([
-        Validators.required,
-        Validators.pattern('[0-9,a-z,A-Z ]*')])
+      ProductId: new FormControl(
+        this.product.ProductId,
+        Validators.compose([
+          Validators.required,
+          CustomValidator.CheckSpace,
+          CustomValidator.Duplicate,
+        ])
       ),
-      CategoryName: new FormControl(this.product.CategoryName, Validators.compose([
-        Validators.required])
+      ProductName: new FormControl(
+        this.product.ProductName,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9,a-z,A-Z ]*'),
+        ])
       ),
-      Manufacturer: new FormControl(this.product.Manufacturer, Validators.compose([
-        Validators.required])
+      CategoryName: new FormControl(
+        this.product.CategoryName,
+        Validators.compose([Validators.required])
       ),
-      Description: new FormControl(this.product.Description, Validators.compose([
-        Validators.required,
-        Validators.maxLength(50)])
+      Manufacturer: new FormControl(
+        this.product.Manufacturer,
+        Validators.compose([Validators.required])
       ),
-      BasePrice: new FormControl(this.product.BasePrice, Validators.compose([
-        Validators.required,
-        Validators.min(0)])
-      )
+      Description: new FormControl(
+        this.product.Description,
+        Validators.compose([Validators.required, Validators.maxLength(50)])
+      ),
+      BasePrice: new FormControl(
+        this.product.BasePrice,
+        Validators.compose([Validators.required, Validators.min(0)])
+      ),
     });
-
-
   }
-
 
   ngOnInit(): void {
     this.products = this.logic.getProducts();
@@ -75,7 +82,6 @@ export class ProductReactiveFormComponent implements OnInit {
     for (const p of Object.keys(this.product)) {
       this.columnHeaders.push(p);
     }
-
   }
   clear(): void {
     this.product = new Product(0, '', '', '', '', '', 0);
@@ -89,8 +95,12 @@ export class ProductReactiveFormComponent implements OnInit {
     console.log(JSON.stringify(this.products));
   }
   getSelectedProduct(event): void {
-
     this.product = Object.assign({}, event);
     this.frmProduct.setValue(this.product);
+  }
+
+  deleteSelectedProduct(event): void {
+    this.product = Object.assign({}, event);
+    this.logic.deleteProduct(this.product);
   }
 }

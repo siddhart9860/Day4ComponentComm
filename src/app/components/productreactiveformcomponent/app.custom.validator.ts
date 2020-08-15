@@ -18,7 +18,9 @@ export class CustomValidator {
   static Duplicate(control: AbstractControl): any {
     const value = control.value;
 
-    const index = new Logic().getProducts().findIndex(x => x.ProductId === value);
+    const index = new Logic()
+      .getProducts()
+      .findIndex((x) => x.ProductId === value);
     if (index > -1) {
       return { duplicate: true };
     }

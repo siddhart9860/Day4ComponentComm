@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {SimpleComponent} from './simplecomponent';
-import {ProductFormComponent} from './components/productformcomponent/app.productform.component';
+import { SimpleComponent } from './simplecomponent';
+import { ProductFormComponent } from './components/productformcomponent/app.productform.component';
 import { TableDirectiveComponent } from './directive/componentdirective/app.tablecomponent.directive';
 import { ProductReactiveFormComponent } from './components/productreactiveformcomponent/app.productreactiveform.component';
 // NgModule decorator with properties
@@ -23,14 +23,14 @@ import { ProductReactiveFormComponent } from './components/productreactiveformco
 // load and render in browser
 @NgModule({
   declarations: [
-    AppComponent, SimpleComponent, ProductFormComponent,
-    TableDirectiveComponent, ProductReactiveFormComponent
+    AppComponent,
+    SimpleComponent,
+    ProductFormComponent,
+    TableDirectiveComponent,
+    ProductReactiveFormComponent,
   ],
-  imports: [
-    BrowserModule, FormsModule, ReactiveFormsModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule],
   providers: [],
-  bootstrap: [ProductReactiveFormComponent]
+  bootstrap: [ProductReactiveFormComponent],
 })
-export class AppModule { }
+export class AppModule {}
